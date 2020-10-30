@@ -1,0 +1,87 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: nginx.docker
+    volumes:
+      - ./src:/var/www/bitrix
+      - ./storage/docker/logs/nginx/:/var/log/nginx/
+    ports:
+      - "80"
+    depends_on:
+      - php-fpm
+      - php-fpm-cli
+    networks:
+      bitrix:
+        ipv4_address: ${NGINX_INTERFACE}
+
+  memcached:
+    build:
+      context: ./docker/memcached
+      dockerfile: memcached.docker
+    volumes:
+      - ./storage/docker/memcached:/var/lib/memcached
+    ports:
+      - "11211"
+    depends_on:
+      - php-fpm
+    networks:
+      - bitrix
+
+  php-fpm-cli:
+    build:
+      context: ./docker/php
+      dockerfile: php-fpm-cli.docker
+    volumes:
+      - ./src:/var/www/bitrix
+    depends_on:
+      - mysql
+    tty: true
+    networks:
+      - bitrix
+
+  php-fpm:
+    build:
+      context: ./docker/php
+      dockerfile: php-fpm.docker
+    volumes:
+      - ./src:/var/www/bitrix
+      - ./storage/docker/logs/php/:/var/log/php/
+    depends_on:
+      - mysql
+    networks:
+      - bitrix
+
+  mysql:
+    build:
+      context: ./docker/mysql
+      dockerfile: mysql.docker
+    volumes:
+      - ./storage/docker/mysql/:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "33061:3306"
+    networks:
+      - bitrix
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - bitrix
+
+networks:
+  bitrix:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.100.0.0/24
