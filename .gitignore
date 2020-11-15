@@ -1,4 +1,4 @@
 src/*
-.env
-storage/
 !src/.gitkeep
+storage/
+.env

@@ -9,13 +9,10 @@ services:
       - ./src:/var/www/bitrix
       - ./storage/docker/logs/nginx/:/var/log/nginx/
     ports:
-      - "80"
+      - "80:80"
     depends_on:
       - php-fpm
       - php-fpm-cli
-    networks:
-      bitrix:
-        ipv4_address: ${NGINX_INTERFACE}
 
   memcached:
     build:
@@ -27,8 +24,6 @@ services:
       - "11211"
     depends_on:
       - php-fpm
-    networks:
-      - bitrix
 
   php-fpm-cli:
     build:
@@ -39,8 +34,6 @@ services:
     depends_on:
       - mysql
     tty: true
-    networks:
-      - bitrix
 
   php-fpm:
     build:
@@ -51,8 +44,6 @@ services:
       - ./storage/docker/logs/php/:/var/log/php/
     depends_on:
       - mysql
-    networks:
-      - bitrix
 
   mysql:
     build:
@@ -67,21 +58,9 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "33061:3306"
-    networks:
-      - bitrix
 
   mailhog:
     image: mailhog/mailhog
     ports:
       - "1025:1025"
       - "8025:8025"
-    networks:
-      - bitrix
-
-networks:
-  bitrix:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.100.0.0/24
