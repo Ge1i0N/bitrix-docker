@@ -14,17 +14,6 @@ services:
       - php-fpm
       - php-fpm-cli
 
-  memcached:
-    build:
-      context: ./docker/memcached
-      dockerfile: memcached.docker
-    volumes:
-      - ./storage/docker/memcached:/var/lib/memcached
-    ports:
-      - "11211"
-    depends_on:
-      - php-fpm
-
   php-fpm-cli:
     build:
       context: ./docker/php

@@ -22,7 +22,6 @@ RUN cp /root/go/bin/mhsendmail /usr/bin/mhsendmail
 ADD ./php.ini /usr/local/etc/php/conf.d/php.ini
 ADD ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 ADD ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
-ADD ./memcached.ini /usr/local/etc/php/conf.d/memcached.ini
 
 RUN usermod -u 1000 www-data
 RUN chmod 777 -R /tmp && chmod o+t -R /tmp
