@@ -2,7 +2,7 @@
 Сборка Docker для разработки и тестирования проектов.
 
 ## В сборке
-- PHP 7.3 (opcache, xdebug)
+- PHP 7.4 (opcache, xdebug)
 - nginx stable
 - mysql 5.7
 - smtp (иммитация, перехват писем скриптом на go)
@@ -70,7 +70,7 @@ Bitrix проект нужно расположить в папке `src`
 ### Установка через `bitrixsetup.php`
 - Скачайте `bitrixsetup.php` (файл будет скачан с официального сайта автоматически)
 ```
-make bitrix-setup
+make setup
 ```
 
 - Установка будет доступна по адресу `http://localhost` (NGINX_INTERFACE в `.env`)
@@ -80,7 +80,7 @@ make bitrix-setup
 ### Востановление через `restore.php`
 - Скачайте `restore.php` (файл будет скачан с официального сайта автоматически)
 ```
-make bitrix-restor
+make restore
 ```
 
 - Востановление будет доступна по адресу `http://localhost/restore.php`

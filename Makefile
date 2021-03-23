@@ -7,16 +7,16 @@ start:
 stop:
 	docker-compose down --remove-orphans
 
-bitrix-setup:
-	docker-compose exec php-fpm-cli wget http://www.1c-bitrix.ru/download/scripts/bitrixsetup.php -O bitrixsetup.php
+setup:
+	docker-compose exec php-fpm wget http://www.1c-bitrix.ru/download/scripts/bitrixsetup.php -O bitrixsetup.php
 	make perm
 
-bitrix-restore:
-	docker-compose exec php-fpm-cli wget http://www.1c-bitrix.ru/download/scripts/restore.php -O restore.php
+restore:
+	docker-compose exec php-fpm wget http://www.1c-bitrix.ru/download/scripts/restore.php -O restore.php
 	make perm
 
 composer-install:
-	docker-compose exec -w /var/www/bitrix/bitrix -e COMPOSER=composer-bx.json php-fpm-cli composer i
+	docker-compose exec -w /var/www/bitrix/bitrix -e COMPOSER=composer-bx.json php-fpm composer i
 
 perm:
 	sudo chgrp -R ${USER} src
