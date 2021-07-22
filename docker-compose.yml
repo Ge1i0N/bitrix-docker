@@ -1,13 +1,13 @@
 version: '3'
 
 services:
-  nginx:
-    build:
-      context: ./docker/nginx
-      dockerfile: nginx.docker
+  apache:
+    image: httpd:2-alpine
     volumes:
+      - ./docker/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./docker/apache/default.conf:/usr/local/apache2/conf/conf.d/default.conf
       - ./src:/var/www/bitrix
-      - ./storage/docker/logs/nginx/:/var/log/nginx/
+      - ./storage/docker/logs/apache/:/var/log/apache/
     ports:
       - "80:80"
     depends_on:
