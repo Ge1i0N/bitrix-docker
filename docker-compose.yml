@@ -25,10 +25,9 @@ services:
     tty: true
 
   mysql:
-    build:
-      context: ./docker/mysql
-      dockerfile: mysql.docker
+    image: mysql:8
     volumes:
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
       - ./storage/docker/mysql/:/var/lib/mysql
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
