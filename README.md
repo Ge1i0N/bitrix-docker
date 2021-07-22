@@ -3,8 +3,8 @@
 
 ## В сборке
 - PHP 7.4 (opcache, xdebug)
-- nginx stable
-- mysql 5.7
+- apache 2
+- mysql 8
 - smtp (иммитация, перехват писем скриптом на go)
 - mailhog для просмотра писем
 
