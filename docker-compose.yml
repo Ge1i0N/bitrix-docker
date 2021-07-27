@@ -27,6 +27,7 @@ services:
     volumes:
       - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
       - ./storage/docker/mysql/:/var/lib/mysql
+      - ./docker/mysql/initdb:/docker-entrypoint-initdb.d
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
