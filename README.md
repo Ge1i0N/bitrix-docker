@@ -36,15 +36,11 @@ sudo usermod -aG docker $USER
 
 - Docker compose
 ```
-sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
 ## Первичная настройка и установка
-- Остановите штатный apache (Для MacOS)
-```
-make apache-stop
-```
 - Склонируйте репозиторий bitrix-docker
 - Выполните настройку окружения  в `.env`
 - Запустите bitrix-docker

@@ -1,6 +1,3 @@
-apache-stop:
-	sudo apachectl stop
-	
 start:
 	docker-compose up --build -d
 
@@ -17,6 +14,9 @@ restore:
 
 composer-install:
 	docker-compose exec -w /var/www/bitrix/bitrix -e COMPOSER=composer-bx.json php-fpm composer i
+
+composer-update:
+	docker-compose exec -w /var/www/bitrix/bitrix -e COMPOSER=composer-bx.json php-fpm composer u
 
 perm:
 	sudo chgrp -R ${USER} src
